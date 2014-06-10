@@ -29,7 +29,8 @@ namespace GiftAidCalculator
         public decimal CalculateGiftAidFor(decimal donationAmount)
         {   
             var ratio = CalculateGiftAidRatio();
-            return donationAmount * ratio;
+            decimal aid =  donationAmount * ratio;
+            return Decimal.Round(aid, 2);
         }
 
         public void ChangeCurrentTaxRate(decimal newTaxRate)
