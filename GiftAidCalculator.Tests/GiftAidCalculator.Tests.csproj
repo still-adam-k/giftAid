@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GIVEN_GiftAid_calculator.cs" />
+    <Compile Include="GIVEN_GiftAid_calculator_for_donor.cs" />
+    <Compile Include="GIVEN_Gift_Aid_calculator_for_admin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

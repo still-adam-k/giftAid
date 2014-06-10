@@ -1,13 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+[assembly: InternalsVisibleTo("GiftAidCalculator.Tests")]
 
 namespace GiftAidCalculator
 {
-    public class AidCalculator
+    public interface IGiftAidCalculator
     {
-        private decimal taxRate = 20m;
+        decimal CalculateGiftAidFor(decimal donationAmount);
+    }
+
+    public interface IGiftAidCalculatorAdministration
+    {
+        void ChangeCurrentTaxRate(decimal newTaxRate);
+    }
+
+    internal class AidCalculator : IGiftAidCalculator, IGiftAidCalculatorAdministration
+    {
         private ITaxRepository taxRateRepository;
 
         public AidCalculator(ITaxRepository taxRateRepository)
@@ -21,15 +32,15 @@ namespace GiftAidCalculator
             return donationAmount * ratio;
         }
 
+        public void ChangeCurrentTaxRate(decimal newTaxRate)
+        {
+            taxRateRepository.StoreCurrentTaxRate(newTaxRate);
+        }
+
         private decimal CalculateGiftAidRatio()
         {
             var taxRate = taxRateRepository.GetCurrentTaxRate;
             return taxRate / (100 - taxRate);
-        }
-
-        public void ChangeCurrentTaxRate(decimal p)
-        {
-            taxRateRepository.StoreCurrentTaxRate(p);
         }
     }
 }
