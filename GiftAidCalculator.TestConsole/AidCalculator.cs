@@ -7,15 +7,17 @@ namespace GiftAidCalculator
 {
     public class AidCalculator
     {
-        public decimal CalculateGiftAidFor(decimal p)
-        {
-            return GiftAidAmount(p);
+        private decimal taxRate = 20m;
+
+        public decimal CalculateGiftAidFor(decimal donationAmount)
+        {   
+            var ratio = CalculateGiftAidRatio();
+            return donationAmount * ratio;
         }
 
-        static decimal GiftAidAmount(decimal donationAmount)
+        private decimal CalculateGiftAidRatio()
         {
-            var gaRatio = 20m / (100 - 20m);
-            return donationAmount * gaRatio;
+            return taxRate / (100 - taxRate);
         }
     }
 }
