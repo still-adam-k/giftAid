@@ -15,7 +15,7 @@ namespace GiftAidCalculator.Tests
         [Test]
         public void I_can_calculate_gift_aid_according_to_tax_rate()
         {
-            var calculator = GetAidCalculator();
+            var calculator = GiftAidCalculatorBuilder.Create().AsDonor();
 
             var giftAid = calculator.CalculateGiftAidFor(100m);
 
@@ -23,19 +23,32 @@ namespace GiftAidCalculator.Tests
         }
 
         [Test]
+        public void The_tax_rate_is_retrieved_from_data_store()
+        {
+            var taxMock = new Mock<ITaxRepository>();
+            var calculator = GiftAidCalculatorBuilder
+                .Create()
+                .WithTaxSource(taxMock.Object)
+                .AsDonor();
+
+            calculator.CalculateGiftAidFor(1m);
+
+            taxMock.Verify(x => x.GetCurrentTaxRate);
+        }
+
+        [Test]
         public void And_amount_of_donations_resulting_in_large_fraction_THEN_I_receive_rounded_gift_aid_result()
         {
-            var calculator = GetAidCalculator();
+            var calculator = GiftAidCalculatorBuilder.Create().AsDonor();
 
-            var giftAid = calculator.CalculateGiftAidFor(100.256m);
+            var giftAid = CalculateAmountThatWouldResultIn_25_064_giftAid(calculator);
 
             Assert.That(giftAid, Is.EqualTo(25.06m));
         }
 
-        private static IGiftAidCalculator GetAidCalculator()
+        private static decimal CalculateAmountThatWouldResultIn_25_064_giftAid(IGiftAidCalculator calculator)
         {
-            return new AidCalculator(new FakeTaxRateRepository());
+            return calculator.CalculateGiftAidFor(100.256m);
         }
     }
-
 }

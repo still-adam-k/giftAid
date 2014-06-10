@@ -29,7 +29,7 @@ namespace GiftAidCalculator
         public decimal CalculateGiftAidFor(decimal donationAmount)
         {   
             var ratio = CalculateGiftAidRatio();
-            decimal aid =  donationAmount * ratio;
+            decimal aid = donationAmount * ratio;
             return Decimal.Round(aid, 2);
         }
 
