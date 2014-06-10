@@ -8,6 +8,12 @@ namespace GiftAidCalculator
     public class AidCalculator
     {
         private decimal taxRate = 20m;
+        private ITaxRepository taxRateRepository;
+
+        public AidCalculator(ITaxRepository taxRateRepository)
+        {
+            this.taxRateRepository = taxRateRepository;
+        }
 
         public decimal CalculateGiftAidFor(decimal donationAmount)
         {   
@@ -17,6 +23,7 @@ namespace GiftAidCalculator
 
         private decimal CalculateGiftAidRatio()
         {
+            var taxRate = taxRateRepository.GetCurrentTaxRate;
             return taxRate / (100 - taxRate);
         }
     }

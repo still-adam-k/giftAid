@@ -8,7 +8,7 @@ namespace GiftAidCalculator.TestConsole
 		{
 			// Calc Gift Aid Based on Previous
 			Console.WriteLine("Please Enter donation amount:");
-			Console.WriteLine( new AidCalculator().CalculateGiftAidFor(decimal.Parse(Console.ReadLine())));
+			Console.WriteLine( new AidCalculator(new FakeTaxRateRepository()).CalculateGiftAidFor(decimal.Parse(Console.ReadLine())));
 			Console.WriteLine("Press any key to exit.");
 			Console.ReadLine();
 		}
