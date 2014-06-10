@@ -9,7 +9,13 @@ namespace GiftAidCalculator
     {
         public decimal CalculateGiftAidFor(decimal p)
         {
-            throw new NotImplementedException();
+            return GiftAidAmount(p);
+        }
+
+        static decimal GiftAidAmount(decimal donationAmount)
+        {
+            var gaRatio = 20m / (100 - 20m);
+            return donationAmount * gaRatio;
         }
     }
 }
