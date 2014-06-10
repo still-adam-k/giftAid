@@ -26,5 +26,10 @@ namespace GiftAidCalculator
             var taxRate = taxRateRepository.GetCurrentTaxRate;
             return taxRate / (100 - taxRate);
         }
+
+        public void ChangeCurrentTaxRate(decimal p)
+        {
+            taxRateRepository.StoreCurrentTaxRate(p);
+        }
     }
 }

@@ -15,5 +15,9 @@ namespace GiftAidCalculator.TestConsole
                 return 20m;
             }
         }
+
+        public void StoreCurrentTaxRate(decimal taxRate)
+        {
+        }
     }
 }
